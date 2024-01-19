@@ -5,8 +5,8 @@ interface ApplicationWrapperProps {
   }
 
 export const ApplicationWrapper = styled.div<ApplicationWrapperProps >`
-
-width: 100wv;
+position: relative;
+width: 100%;
 max-width: 100%;
 min-height: 100vh;
 background-color:  ${(props) => props.background};
