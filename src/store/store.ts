@@ -7,17 +7,12 @@ import type { ThunkAction, Action } from '@reduxjs/toolkit';
 const rootReducer = combineReducers({
    themeReducer,
 })
-
-
-
-
 const persistConfig = getPersistConfig({
 	key: 'root',
 	storage,
 	blacklist: ['calculator.result', 'calculator.displayValue'],
 	rootReducer,
 });
-
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({
 	reducer: persistedReducer,

@@ -8,3 +8,7 @@ export const switchToDarken = () => (dispatch: AppDispatch) => {
 
 
 
+export const tes = () => (dispatch: AppDispatch) => {
+    dispatch(themeSlice.actions.test());
+}; 
+
