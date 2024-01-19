@@ -54,7 +54,25 @@ export function buildLoaders(options: BuildOptions): ModuleOptions['rules'] {
             // Compiles Sass to CSS
             "sass-loader",
         ],
-    } 
+    }  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const tsLoader = {
         // ts-loader умеет работать с JSX
         // Если б мы не использовали тайпскрипт: нужен был бы babel-loader

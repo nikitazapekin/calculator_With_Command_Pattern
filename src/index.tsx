@@ -1,35 +1,52 @@
+//import React from 'react';
+//import React from 'react'
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './components/App';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Suspense } from 'react';
 import { Te } from './components/Te';
-
+import {Provider} from "react-redux";
+//import {setupStore} from "./store/store";
+import AppRoutes from './utils/routes';
+import { persistor, store } from './store/store';
+import { Route, Routes, Navigate } from "react-router-dom"
+import { PersistGate } from 'redux-persist/integration/react';
+import {
+ HOME_PAGE_ROUTE,
+ SETTINGS_ROUTE
+} from "../src/utils/constants"
+import Homepage from "../src/pages/Homepage"
+import SettingsPage from "../src/pages/Settings";
+const publicRoutes=[
+   {
+      path: HOME_PAGE_ROUTE,
+      Component: Homepage
+   },
+   {
+      path: SETTINGS_ROUTE,
+      Component: SettingsPage
+   },
+]
 const root = document.getElementById('root');
-
 if (!root) {
     throw new Error('root not found');
 }
-
 const container = createRoot(root);
-
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <App />,
-        children: [
-            {
-                path: '/about',
-                element: <Suspense fallback={'Loading...'}><Te /></Suspense>,
-            },
-            {
-                path: '/shop',
-                element: <Suspense fallback={'Loading...'}><Te /></Suspense>,
-            },
-        ],
-    },
-]);
-
+//const store = setupStore();
 container.render(
-    <RouterProvider router={router} />
+    <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+
+<BrowserRouter>
+<Routes>
+            {publicRoutes.map(({ path, Component }) => (<Route key={path} path={path} element={<Component  />} />)
+            )}
+         <Route path="*" element={<Navigate replace to={HOME_PAGE_ROUTE} />} /> 
+
+         </Routes>
+</BrowserRouter> 
+            </PersistGate>
+
+    </Provider>
 );

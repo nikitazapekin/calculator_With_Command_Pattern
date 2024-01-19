@@ -1,14 +1,10 @@
-import React, {useState} from 'react';
+/*import React, {useEffect, useState} from 'react';
 import {Link, Outlet} from "react-router-dom";
 import "./styles.css"
+import { Te } from './Te';
+import { fetchOneDevice } from '../http/deviceAPI';
 export const App = () => {
     const [count, setCount] = useState<number>(0);
-    const increment = () => {
-        setCount(prev => prev + 1)
-      //  TODO();
-    }
-   
-
     return (
         <div data-testid={'App.DataTestId'}>
             
@@ -16,7 +12,7 @@ export const App = () => {
             
             <div className='test'>
              efwwwwwwwwwwwwwwww
-               
+               <Te />
             </div>
             <Link to={'/about'}>about</Link>
             <br/>
@@ -28,3 +24,26 @@ export const App = () => {
         </div>
     );
 };
+ */
+
+
+import React, { memo } from 'react'
+import { ApplicationWrapper } from './ApplicationWrapper/ApplicationWrapper';
+import { useTheme } from '../hooks/useTheme';
+import { DisablePaddings } from './DisablePaddings/DisablePaddings';
+import { Global } from './ApplicationWrapper/GlobalStyles';
+import { BrowserRouter } from 'react-router-dom';
+import AppRoutes from '../utils/routes';
+export const App = memo(function App(): JSX.Element {
+    const {theme, themeOfText} =useTheme()
+	return (
+
+<ApplicationWrapper background={theme ? theme : "rgba(35, 36, 35)"} color={themeOfText ? themeOfText : "rgba(35, 36, 35)"}>
+ 
+</ApplicationWrapper>
+
+
+
+	);
+});
+

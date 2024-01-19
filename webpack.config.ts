@@ -1,39 +1,3 @@
-/*import path from 'path';
-import webpack from 'webpack';
-import {buildWebpack} from "./config/build/buildWebpack";
-import {BuildMode, BuildPaths, BuildPlatform} from "./config/build/types/types";
-
-
-interface EnvVariables {
-    mode?: BuildMode;
-    analyzer?: boolean;
-    port?: number;
-    platform?: BuildPlatform;
-}
-
-export default (env: EnvVariables) => {
-    const paths: BuildPaths = {
-        output: path.resolve(__dirname, 'build'),
-        entry: path.resolve(__dirname, 'src', 'index.tsx'),
-        html: path.resolve(__dirname, 'public', 'index.html'),
-        public: path.resolve(__dirname, 'public'),
-        src: path.resolve(__dirname, 'src'),
-    }
-
-    const config: webpack.Configuration = buildWebpack({
-        port: env.port ?? 3000,
-        mode: env.mode ?? 'development',
-        paths,
-        analyzer: env.analyzer,
-        platform: env.platform ?? 'desktop'
-    })
-
-    return config;
-}
-
-*/
-
-
 
 import path from 'path';
 import webpack from 'webpack';
@@ -46,6 +10,7 @@ interface EnvVariables {
     analyzer?: boolean;
     port?: number;
     platform?: BuildPlatform;
+    REACT_APP_API_URL?: string;
 }
 
 export default (env: EnvVariables) => {
@@ -65,25 +30,27 @@ export default (env: EnvVariables) => {
         platform: env.platform ?? 'desktop',
     });
 
-    // Добавление загрузчиков и плагинов для обработки файлов CSS и SCSS
-    if(config.module!.rules!=undefined){
+    const definePlugin = new webpack.DefinePlugin({
+        'process.env.REACT_APP_API_URL': JSON.stringify(env.REACT_APP_API_URL || 'https://jsonplaceholder.typicode.com'),
+    });
 
-        config.module!.rules.push(
+    if (config.module && config.module.rules) {
+        config.module.rules.push(
             {
-            test: /\.css$/,
-            use: [
-                MiniCssExtractPlugin.loader,
-                'css-loader',
-            ],
-        },
-        {
-            test: /\.scss$/,
-            use: [
-                MiniCssExtractPlugin.loader,
-                'css-loader',
-                'sass-loader',
-            ],
-        },
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                ],
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader',
+                ],
+            },
         );
     }
 
@@ -92,6 +59,7 @@ export default (env: EnvVariables) => {
             filename: '[name].css',
             chunkFilename: '[id].css',
         }),
+        definePlugin,
     );
 
     return config;
