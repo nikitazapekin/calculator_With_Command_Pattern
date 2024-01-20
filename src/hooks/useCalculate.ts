@@ -1,6 +1,6 @@
-
-
+import { useAppDispatch } from "../hooks/redux";
 import { useEffect, useState } from "react";
+import { AddExpressionToHistory } from "../store/action-creators/history-actionCreator";
 function control(testString: string) { 
   testString = testString.replace(/\++/g, "+");
   testString = testString.replace(/\--/g, "+");
@@ -78,7 +78,6 @@ function calculation(buffString: string) {
  }                                                                 
  stackId = -1;               
  var stringIdMax = stringId;
-
  for (stringId = 0; stringId <= stringIdMax; stringId++ ) {
      switch (polishString[stringId]) {
          case "+":
@@ -117,33 +116,35 @@ setExpression(symbol: string) {
 if(this.currentExpression.length==0) {
   if( !['+', '*', '/', '=', 'C', '✖'].includes(symbol)){
     this.currentExpression += symbol;
-    
   }
 }
 if(this.currentExpression.length>0 && symbol=="=") {
 this.currentExpression=this.currentExpression+calculation(this.currentExpression.substring(0, this.currentExpression.length-1))
-//this.currentExpression
 }
   } 
-   
   sumAction() {
    this.currentResult= calculation(this.currentExpression);
   }
 }
 const calculator = new Calculator()
 export const useCalculate = () => {
+  const dispatch=useAppDispatch()
 const [currentExpression, setCurrentExpression] = useState<string>("");
  const [currentResult, setCurrentResult] = useState<number>(0);
  const [selectedSymbol, setSelectedSymbol] = useState<string>("");
  useEffect(()=> {
 calculator.setExpression(selectedSymbol)
 setCurrentExpression(calculator.currentExpression)
- calculator.sumAction()  
- console.log("RESULT" +calculator.currentResult)
- }, [selectedSymbol])
- 
+ calculator.sumAction()   
+ const expression=calculator.currentExpression
+ dispatch(AddExpressionToHistory(expression))
+}, [selectedSymbol])
+useEffect(()=> {
+ }, [calculator.calculatingResults])
 return {setSelectedSymbol, 
   currentExpression, 
   selectedSymbol, isError: calculator.isError}
 
 };
+
+

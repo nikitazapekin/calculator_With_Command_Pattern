@@ -26,6 +26,7 @@ background-color: green;
 position: absolute;
 font-size: 40px;
 user-select: none;
+color: black;
 z-index:112;
 margin: 0 auto
 `
@@ -61,3 +62,31 @@ align-items: center;
  line-height: 100px
 
 `
+export const HistoryButton= styled.h1` 
+color: #fff;
+font-size: 32px;
+position: absolute;
+z-index: 444;
+top: 0;
+right: 0;
+padding-right: 20px;
+transform: translateY(-20px);
+cursor: pointer;
+`
+interface Props {
+    color: string
+}
+
+export const ClearHistoryButton= styled.h1<Props>` 
+color: ${props=>props.color};
+font-size: 32px;
+position: absolute;
+z-index: 444;
+ top: 400px;
+padding-right: 20px;
+transform: translateY(-20px);
+cursor: pointer;
+padding-left: 50px
+`
+
+

@@ -1,12 +1,12 @@
-
-
 import React, { useEffect, useState } from 'react';
-import { CalculatorDisplay, CalculatorDisplayEcquations, CalculatorKey, CalculatorKeys, CalculatorWrapper } from "./calculatorStyles";
+import { calcBtns } from '../../utils/calculatorButtons';
+import { CalculatorDisplay, CalculatorDisplayEcquations, CalculatorKey, CalculatorKeys, CalculatorWrapper, HistoryButton } from "./calculatorStyles";
 import { useCalculate } from '../../hooks/useCalculate';
+import Modal from '../modal/modal';
 const Calculator = () => {
     const {setSelectedSymbol, currentExpression, selectedSymbol, isError}=useCalculate()
+    const [onClose, setOnClose] = useState<boolean>(false)
     const [strokeToDisplay, setStrokeToDisplay] = useState("")
-  const calcBtns = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', '-', '*', '/', '=', 'C', '✖', ')', '(', '^'];
   const handleClick= (event: React.MouseEvent<HTMLDivElement, MouseEvent>)=> {
     const target = event.target as HTMLDivElement;
     setSelectedSymbol(target.textContent);     
@@ -14,15 +14,24 @@ const Calculator = () => {
   useEffect(()=> {
 setStrokeToDisplay(currentExpression)
   }, [currentExpression])
+  const handleClickOpen=()=> {
+    console.log("is Click")
+setOnClose(true)
+  }
+  useEffect(()=> {
+    console.log("onClose" +onClose)
+  }, [onClose])
   return (
     <CalculatorWrapper>
       <CalculatorDisplay>
         <CalculatorDisplayEcquations
           disabled={true}
-        //  value={currentExpression}
       value={strokeToDisplay}
         />
-      </CalculatorDisplay>
+          </CalculatorDisplay>
+<HistoryButton onClick={ handleClickOpen}>
+  History
+</HistoryButton>
       <CalculatorKeys>
         {calcBtns.map((item, index) => (
           <CalculatorKey key={index} onClick={(event)=> handleClick(event)}>
@@ -30,14 +39,10 @@ setStrokeToDisplay(currentExpression)
           </CalculatorKey>
         ))}
       </CalculatorKeys>
+      <Modal onClose={onClose} setOnClose={setOnClose} >
+        </Modal>
     </CalculatorWrapper>
   );
 };
 
 export default Calculator;
-
-      /* useEffect(()=> {
-           setStrokeToDisplay(prev=>prev+selectedSymbol)
-         }, [selectedSymbol]) 
-       //  }
-       //}, [selectedSymbol, isError])  */

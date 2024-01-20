@@ -7,7 +7,6 @@ interface ThemeState {
  test: "Hello" | "Goodbye";
  tt: number
     }
-
 const initialState: ThemeState = {
   theme: "rgba(35, 36, 35)",
   themeOfText: "#fff",
@@ -31,7 +30,6 @@ export const themeSlice = createSlice({
       },
       test: (state) => {
           state.test="Goodbye"
-          console.log("STTTTTTTTTTTTT" +state.test)
       },
       tt:(state) => {
         state.tt++

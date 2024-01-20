@@ -4,8 +4,11 @@ import { getPersistConfig } from 'redux-deep-persist';
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import type { ThunkAction, Action } from '@reduxjs/toolkit';
+import { calculatorSlice } from "./slices/CalculatorSlice";
 const rootReducer = combineReducers({
    themeReducer,
+   calculator: calculatorSlice.reducer, 
+   
 })
 const persistConfig = getPersistConfig({
 	key: 'root',
