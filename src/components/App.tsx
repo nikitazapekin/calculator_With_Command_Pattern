@@ -37,7 +37,6 @@ import AppRoutes from '../utils/routes';
 export const App = memo(function App(): JSX.Element {
     const {theme, themeOfText} =useTheme()
 	return (
-
 <ApplicationWrapper background={theme ? theme : "rgba(35, 36, 35)"} color={themeOfText ? themeOfText : "rgba(35, 36, 35)"}>
  
 </ApplicationWrapper>

@@ -11,7 +11,6 @@ font-size: 50px;
 font-family: Roboto
 color: ${(props) => props.color}
 `
-
 interface SwitchThemeOptionProps {
     backColor: string
 }

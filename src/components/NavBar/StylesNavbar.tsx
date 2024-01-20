@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 interface StyledNavBarProps {
     background: string;
-    color: string;
+   // color: string;
     
   }
 export const StyledNavbar = styled.nav<StyledNavBarProps>`
@@ -22,6 +22,7 @@ width: 70px;
 height: 70px;
 border-radius: 50%;
 cursor: pointer;
+
 display: flex;
 align-items: center;
 font-size: 34px;
@@ -37,10 +38,12 @@ export const StyledNavBarBlockText= styled.div`
 display: flex;
 gap: 20px;
 justify-content: flex-end;
+color: #fff
 `
 export const StyledNavBarItemText= styled.div`
 line-height: 70px;
 cursor: pointer;
 font-size: 34px;
 font-family: Roboto;
+color: #fff
 `

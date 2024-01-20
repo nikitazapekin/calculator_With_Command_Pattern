@@ -15,7 +15,7 @@ const initialState: ThemeState = {
   test: "Hello",
    tt: 0
 }
-export const themeSlice = createSlice({
+export const calculatorSlice = createSlice({
     name: 'theme',
     initialState,
     reducers: {
@@ -24,21 +24,10 @@ export const themeSlice = createSlice({
             state.themeOfText="#fff"
             state.themeOfNavBar= "rgba(32, 33, 32)" 
         },
-        switchToLighter: (state) => {
-          state.theme =  "#fff";
-          state.themeOfText="rgba(35, 36, 35)"
-          state.themeOfNavBar= "rgba(10, 10, 10)" 
-      },
-      test: (state) => {
-          state.test="Goodbye"
-          console.log("STTTTTTTTTTTTT" +state.test)
-      },
-      tt:(state) => {
-        state.tt++
-      }
+    
       
     },
  
 })
 
-export default themeSlice.reducer;
+export default calculatorSlice.reducer;

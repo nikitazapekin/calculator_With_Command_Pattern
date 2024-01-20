@@ -2,7 +2,6 @@ import { useTheme } from "../hooks/useTheme";
 import { ApplicationWrapper } from "../components/ApplicationWrapper/ApplicationWrapper";
 import NavBar from "../components/NavBar/navbar";
 import SwitchTheme from "../components/switchTheme/switchTheme";
-//import { SwitchTheme } from "../components/switchTheme/StylesSwitchTheme";
 const SettingsPage = () => {
     const {theme, themeOfText} =useTheme()
     return ( 

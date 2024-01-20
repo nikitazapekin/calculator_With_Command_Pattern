@@ -7,7 +7,6 @@ import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router
 import { Suspense } from 'react';
 import { Te } from './components/Te';
 import {Provider} from "react-redux";
-//import {setupStore} from "./store/store";
 import AppRoutes from './utils/routes';
 import { persistor, store } from './store/store';
 import { Route, Routes, Navigate } from "react-router-dom"
@@ -18,6 +17,7 @@ import {
 } from "../src/utils/constants"
 import Homepage from "../src/pages/Homepage"
 import SettingsPage from "../src/pages/Settings";
+import { ErrorBoundary } from './components/errorBoundary/errorBoundary';
 const publicRoutes=[
    {
       path: HOME_PAGE_ROUTE,
@@ -33,12 +33,13 @@ if (!root) {
     throw new Error('root not found');
 }
 const container = createRoot(root);
-//const store = setupStore();
 container.render(
+<ErrorBoundary>
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
 
 <BrowserRouter>
+
 <Routes>
             {publicRoutes.map(({ path, Component }) => (<Route key={path} path={path} element={<Component  />} />)
             )}
@@ -49,4 +50,5 @@ container.render(
             </PersistGate>
 
     </Provider>
+            </ErrorBoundary>
 );

@@ -46,7 +46,7 @@ const NavBar = () => {
     }
 
     return (
-        <StyledNavbar background={themeOfNavBar ? themeOfNavBar : "rgba(35, 36, 35)"} color={themeOfText ? themeOfText : "rgba(35, 36, 35)"}>
+        <StyledNavbar background={themeOfNavBar ? themeOfNavBar : "rgba(35, 36, 35)"} color={"#fff"}>
             <StyledNavbarWrapper>
                 <StyledNavBarItemImage>
                     <img src={Logo} alt="Logo" />
